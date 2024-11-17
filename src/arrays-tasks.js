@@ -534,8 +534,30 @@ function findLongestIncreasingSubsequence(/* nums */) {
  *  propagateItemsByPositionIndex([ 'a', 'b', 'c', null ]) => [ 'a', 'b', 'b', 'c', 'c', 'c',  null, null, null, null ]
  *  propagateItemsByPositionIndex([ 1,2,3,4,5 ]) => [ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  if (!arr.length) return [];
+  const array = arr
+    .reduce((acc, el, ind) => {
+      const temp =
+        typeof el === 'string'
+          ? el.repeat(ind + 1).split('')
+          : Array.from({ length: ind + 1 }, () => null);
+      acc.push(temp);
+      return acc;
+    }, [])
+    .flat(10);
+  const numbers = arr
+    .reduce((acc, el, ind) => {
+      acc.push(
+        String(el)
+          .repeat(ind + 1)
+          .split('')
+      );
+      return acc;
+    }, [])
+    .flat(10)
+    .map((el) => +el);
+  return typeof arr[0] === 'number' ? numbers : array;
 }
 
 /**
